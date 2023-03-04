@@ -238,7 +238,7 @@ class HomeView extends StatelessWidget {
                 final sample = Sample.list[index];
                 return SampleWidget(sample: sample);
               },
-              separatorBuilder: (context, index) => height(),
+              separatorBuilder: (context, index) => height(12),
               itemCount: Sample.list.length,
             ),
           ],

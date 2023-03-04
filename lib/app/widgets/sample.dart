@@ -30,7 +30,7 @@ class SampleWidget extends StatelessWidget {
             arguments: sample,
           );
         },
-        padding: inset(12),
+        padding: inset(),
         radius: borderRadius(4),
         child: Row(
           children: [

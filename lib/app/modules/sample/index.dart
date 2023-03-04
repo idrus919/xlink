@@ -42,7 +42,6 @@ class SampleView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              height(8),
               DropdownButton(
                 items: Dropdown.samples,
                 value: sample,
@@ -79,7 +78,6 @@ class SampleView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              height(8),
               DropdownButton(
                 items: Dropdown.accounts(sample),
                 value: (account?.parentAccountNo ?? '').isEmpty ? null : account,
