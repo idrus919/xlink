@@ -13,7 +13,7 @@ class AccountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accounts = account?.accounts ?? [];
-    final total = SampleController.find.getTotal(account);
+    final total = SampleController.find.getTotalBalance(account);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -44,7 +44,7 @@ class SampleController extends GetxController {
     return accounts;
   }
 
-  int getTotal(AccountModel? account) {
+  int getTotalBalance(AccountModel? account) {
     final items = sample.value?.accounts ?? [];
     final accounts = items.where((e) => e.parentAccountNo == account?.accountNo).toList();
     int total = 0;
@@ -59,7 +59,7 @@ class SampleController extends GetxController {
           total += account.balance;
         }
         else {
-          final totalFromChildren = getTotal(accounts[i]);
+          final totalFromChildren = getTotalBalance(accounts[i]);
           total += totalFromChildren;
         }
       }
