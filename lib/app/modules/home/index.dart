@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:xlink/app/constants/color.dart';
 import 'package:xlink/app/constants/icons.dart';
+import 'package:xlink/app/constants/images.dart';
 import 'package:xlink/app/constants/menu.dart';
 import 'package:xlink/app/constants/sample.dart';
 import 'package:xlink/app/constants/themes.dart';
@@ -27,6 +28,7 @@ class HomeView extends StatelessWidget {
           appBar,
           wallet,
           menu,
+          info,
           history,
         ],
       ),
@@ -38,7 +40,20 @@ class HomeView extends StatelessWidget {
       pinned: true,
       centerTitle: false,
       toolbarHeight: 78,
-      title: const Text('Mobile Banking'),
+      title: Text(
+        'Mobile Banking',
+        style: TextStyle(
+          foreground: Paint()..shader = const LinearGradient(
+            colors: [
+              primaryColor,
+              primaryDarkColor,
+            ],
+          ).createShader(
+            const Rect.fromLTWH(0.0, 0.0, 200.0, 100.0)
+          ),
+        ),
+      ),
+      backgroundColor: whiteColor,
       actions: [
         IconButton(
           onPressed: () => Get.toNamed(Routes.transaction),
@@ -72,7 +87,7 @@ class HomeView extends StatelessWidget {
                 children: [
                   const Text('Your balance'),
                   Text(
-                    Utils.currency(total),
+                    '\$ ${Utils.currency(total)}',
                     style: Get.textTheme.headlineLarge?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -92,7 +107,7 @@ class HomeView extends StatelessWidget {
                                 BlendMode.srcIn,
                               ),
                             ),
-                            width(4),
+                            width(8),
                             const Text('Transfer'),
                           ],
                         ),
@@ -110,7 +125,7 @@ class HomeView extends StatelessWidget {
                                 BlendMode.srcIn,
                               ),
                             ),
-                            width(4),
+                            width(8),
                             const Text('Request'),
                           ],
                         ),
@@ -154,15 +169,32 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+  
+  SliverToBoxAdapter get info {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: insetHorizontal(),
+        child: Container(
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: borderRadius(12),
+          ),
+          child: Center(
+            child: Image.asset(shoppingImage, scale: 2)
+          ),
+        ),
+      ),
+    );
+  }
 
   SliverToBoxAdapter get history {
     return SliverToBoxAdapter(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: insetHorizontal(),
-            child: Row(
+      child: Padding(
+        padding: inset(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -171,23 +203,24 @@ class HomeView extends StatelessWidget {
                 ),
                 InkWellWidget(
                   onTap: () => Get.toNamed(Routes.transaction),
-                  child: Text('See all'),
+                  child: const Text('See all'),
                 ),
               ],
             ),
-          ),
-          ListView.separated(
-            shrinkWrap: true,
-            padding: inset(),
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              final sample = Sample.list[index];
-              return SampleWidget(sample: sample);
-            },
-            separatorBuilder: (context, index) => height(),
-            itemCount: Sample.list.length,
-          ),
-        ],
+            height(12),
+            ListView.separated(
+              shrinkWrap: true,
+              padding: inset(0),
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final sample = Sample.list[index];
+                return SampleWidget(sample: sample);
+              },
+              separatorBuilder: (context, index) => height(),
+              itemCount: Sample.list.length,
+            ),
+          ],
+        ),
       ),
     );
   }

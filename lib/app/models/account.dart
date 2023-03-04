@@ -1,11 +1,13 @@
 class AccountModel {
-  const AccountModel(
+  AccountModel(
       this.parentAccountNo,
       this.accountNo,
       this.balance,
+      {required this.accounts}
       );
 
-  final String parentAccountNo;
-  final String accountNo;
-  final int balance;
+  String parentAccountNo;
+  String accountNo;
+  int balance;
+  List<AccountModel> accounts;
 }

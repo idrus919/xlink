@@ -11,6 +11,7 @@ class TransactionView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Transactions'),
+        systemOverlayStyle: uiDark,
       ),
       body: CustomScrollView(
         slivers: [

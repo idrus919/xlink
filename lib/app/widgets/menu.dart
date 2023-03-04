@@ -12,15 +12,17 @@ class MenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWellWidget(
       onTap: () {},
-      padding: inset(12),
+      padding: inset(),
       radius: borderRadius(),
       child: Column(
         children: [
-          Image.asset(menu.image, scale: 3),
-          height(4),
+          Image.asset(menu.image, scale: 3.5),
+          height(8),
           Text(
             menu.title,
-            style: Get.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+            style: Get.textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),

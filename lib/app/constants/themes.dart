@@ -17,15 +17,15 @@ ThemeData themeData = ThemeData(
 );
 
 AppBarTheme appBarTheme = AppBarTheme(
-  color: whiteColor,
+  color: primaryColor,
   systemOverlayStyle: uiLight,
-  iconTheme: const IconThemeData(color: primaryDarkColor),
+  iconTheme: const IconThemeData(color: whiteColor),
   elevation: 0,
   centerTitle: true,
   toolbarHeight: 78,
   titleTextStyle: const TextStyle(
     fontSize: 18,
-    color: primaryDarkColor,
+    color: whiteColor,
     fontWeight: FontWeight.w700,
     fontFamily: 'Quicksand',
   ),
@@ -116,7 +116,7 @@ TextTheme textTheme = const TextTheme(
 );
 
 SystemUiOverlayStyle uiDark = const SystemUiOverlayStyle(
-  statusBarColor: primaryDarkColor,
+  statusBarColor: primaryColor,
   statusBarIconBrightness: Brightness.light,
   statusBarBrightness: Brightness.dark,
 );

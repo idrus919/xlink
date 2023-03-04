@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:xlink/app/constants/color.dart';
+import 'package:xlink/app/constants/icons.dart';
 import 'package:xlink/app/constants/themes.dart';
 import 'package:xlink/app/models/sample.dart';
 import 'package:xlink/app/widgets/inkwell.dart';
@@ -25,16 +27,15 @@ class SampleWidget extends StatelessWidget {
         onTap: () {
           Get.toNamed(
             Routes.sample,
-            arguments: {
-              'parent': sample,
-              'account': null,
-            },
+            arguments: sample,
           );
         },
         padding: inset(12),
         radius: borderRadius(4),
         child: Row(
           children: [
+            SvgPicture.asset(billIcon, width: 32),
+            width(12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +44,7 @@ class SampleWidget extends StatelessWidget {
                     sample.name,
                     style: Get.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                   ),
-                  height(8),
+                  height(4),
                   Text(
                     sample.no,
                     style: Get.textTheme.bodySmall,
@@ -52,10 +53,9 @@ class SampleWidget extends StatelessWidget {
               ),
             ),
             Text(
-              Utils.currency(total),
+              '\$ ${Utils.currency(total)}',
               style: Get.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: primaryColor,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],
