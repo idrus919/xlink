@@ -6,7 +6,7 @@ class HomeController extends GetxController {
 
   final scrollController = ScrollController();
 
-  final reachTop = false.obs;
+  final offset = 0.0.obs;
 
   @override
   void onInit() {
@@ -21,12 +21,6 @@ class HomeController extends GetxController {
   }
 
   void _scrollListener() {
-    final offset = scrollController.offset;
-    if (offset < 18) {
-      reachTop.value = false;
-    } else {
-      reachTop.value = true;
-    }
-    reachTop.refresh();
+    offset.value = scrollController.offset;
   }
 }

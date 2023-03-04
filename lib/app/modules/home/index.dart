@@ -11,6 +11,7 @@ import 'package:xlink/app/controllers/home.dart';
 import 'package:xlink/app/widgets/inkwell.dart';
 import 'package:xlink/app/widgets/menu.dart';
 import 'package:xlink/app/widgets/sample.dart';
+import 'package:xlink/app/widgets/sliver_delegate.dart';
 import 'package:xlink/routes/routes.dart';
 import 'package:xlink/services/utils.dart';
 
@@ -63,84 +64,101 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter get wallet {
+  SliverPersistentHeader get wallet {
     final balances = Sample.list.map((e) {
       final balanceAccounts = e.accounts.map((e) => e.balance).toList();
       final total = balanceAccounts.reduce((a, b) => a + b);
       return total;
     }).toList();
     final total = balances.reduce((a, b) => a + b);
-    return SliverToBoxAdapter(
-      child: Container(
-        padding: inset(),
-        decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.vertical(
-            bottom: radiusEliptical(32, 16),
-          ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Your balance'),
-                  Text(
-                    '\$ ${Utils.currency(total)}',
-                    style: Get.textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  height(),
-                  Row(
+    return SliverPersistentHeader(
+      delegate: SliverDelegate(
+        height: 160,
+        child: Obx(() {
+          final offset = HomeController.find.offset.value;
+          double radius = 24;
+          if (offset > 160) {
+            radius = 0;
+          }
+          else {
+            if (offset > (160 - 24) && offset < 160) {
+              debugPrint(offset.toString());
+              radius = 160 - offset;
+            }
+          }
+          return Container(
+            padding: inset(),
+            decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.vertical(
+                bottom: radiusEliptical(32, radius),
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              transferIcon,
-                              width: 20,
-                              colorFilter: const ColorFilter.mode(
-                                whiteColor,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                            width(8),
-                            const Text('Transfer'),
-                          ],
+                      const Text('Your balance'),
+                      Text(
+                        '\$ ${Utils.currency(total)}',
+                        style: Get.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                      width(4),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              requestIcon,
-                              width: 20,
-                              colorFilter: const ColorFilter.mode(
-                                whiteColor,
-                                BlendMode.srcIn,
-                              ),
+                      height(),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  transferIcon,
+                                  width: 20,
+                                  colorFilter: const ColorFilter.mode(
+                                    whiteColor,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                                width(8),
+                                const Text('Transfer'),
+                              ],
                             ),
-                            width(8),
-                            const Text('Request'),
-                          ],
-                        ),
+                          ),
+                          width(4),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  requestIcon,
+                                  width: 20,
+                                  colorFilter: const ColorFilter.mode(
+                                    whiteColor,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                                width(8),
+                                const Text('Request'),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                Opacity(
+                  opacity: 0.3,
+                  child: SvgPicture.asset(bankIcon),
+                ),
+              ],
             ),
-            Opacity(
-              opacity: 0.3,
-              child: SvgPicture.asset(bankIcon),
-            ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }
