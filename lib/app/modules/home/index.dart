@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
           appBar,
           wallet,
           menu,
-          info,
+          promo,
           history,
         ],
       ),
@@ -170,13 +170,17 @@ class HomeView extends StatelessWidget {
     );
   }
   
-  SliverToBoxAdapter get info {
+  SliverToBoxAdapter get promo {
     return SliverToBoxAdapter(
       child: Padding(
         padding: insetHorizontal(),
         child: Container(
           decoration: BoxDecoration(
-            color: primaryColor,
+            gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [primaryColor, primaryDarkColor],
+            ),
             borderRadius: borderRadius(12),
           ),
           child: Center(
